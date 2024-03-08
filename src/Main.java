@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        double value = 157.99;
+        byte minValue = Byte.MIN_VALUE;
     }
 }
