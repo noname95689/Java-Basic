@@ -1,35 +1,29 @@
-import java.util.Random;
+import org.w3c.dom.ls.LSOutput;
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int[] intArray = new int[20];
-        for (int i = 0; i < intArray.length; i++) {
-            intArray[i] =  random.nextInt(41) - 20;
-        }
-        System.out.println("Выводим минимальное число из массива");
-        System.out.println(getMinValue(intArray));
-        System.out.println("Выводим максимальное число из массива");
-        System.out.println(getMaxValue(intArray));
+        Scanner console = new Scanner(System.in);
+        System.out.println("Пожалуйста, введите текущий курс рубля");
+        double roubleExchangeRate = getDoubleFromInput(console.nextLine());
+        System.out.println("Пожалуйста, введите количество рублей для обмена");
+        double roubleExchangeAmount = getDoubleFromInput(console.nextLine());
+        double dollarsAmount = roubleExchangeAmount / roubleExchangeRate;
+        DecimalFormat df = new DecimalFormat("#.##");
+        System.out.println("Количество рублей для обмена: " + df.format(roubleExchangeAmount));
+        System.out.println("Курс доллара: " + df.format(roubleExchangeRate));
+        System.out.println("Сумма в долларах после обмена: " + df.format(dollarsAmount));
+
     }
 
-    public static int getMinValue(int[] intArray) {
-        int MIN_VALUE = Integer.MAX_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] <= MIN_VALUE) {
-                MIN_VALUE = intArray[i];
-            }
+    public static double getDoubleFromInput(String input) {
+        try {
+            return Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Пожалуйста, введите число");
+            return 0;
         }
-        return MIN_VALUE;
-    }
-
-    public static int getMaxValue(int[] intArray) {
-        int MAX_VALUE = Integer.MIN_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] >= MAX_VALUE) {
-                MAX_VALUE = intArray[i];
-            }
-        }
-        return MAX_VALUE;
     }
 }
