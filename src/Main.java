@@ -1,35 +1,42 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int[] intArray = new int[20];
-        for (int i = 0; i < intArray.length; i++) {
-            intArray[i] =  random.nextInt(41) - 20;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("""
+                Введите строку длиной 5 символов
+                2 символ должен содержать + или -
+                4 символом должно быть =""");
+        String input = scanner.nextLine();
+        if (input.length() != 5) {
+            System.out.println("Пожалуйста, введите строку из 5 символов.");
+            return;
         }
-        System.out.println("Выводим минимальное число из массива");
-        System.out.println(getMinValue(intArray));
-        System.out.println("Выводим максимальное число из массива");
-        System.out.println(getMaxValue(intArray));
-    }
-
-    public static int getMinValue(int[] intArray) {
-        int MIN_VALUE = Integer.MAX_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] <= MIN_VALUE) {
-                MIN_VALUE = intArray[i];
-            }
+        char[] charArray = new char[5];
+        for (int i = 0; i < 5; i++) {
+            charArray[i] = input.charAt(i);
         }
-        return MIN_VALUE;
-    }
-
-    public static int getMaxValue(int[] intArray) {
-        int MAX_VALUE = Integer.MIN_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] >= MAX_VALUE) {
-                MAX_VALUE = intArray[i];
-            }
+        if ((charArray[1] == '+' || charArray[1] == '-') && charArray[3] == '=') {
+            System.out.println("В уравнении есть + или -, и =");
+        } else {
+            System.out.println("Строка должен содержать + или - вторым символов, и = четвертым символом");
+            return;
         }
-        return MAX_VALUE;
+        if (charArray[0] == 'x' || charArray[2] == 'x' || charArray[4] == 'x') {
+            System.out.println("Строка удовлетворяет условиям");
+        } else {
+            System.out.println("Первым, третьим или пятым символов в строке должен быть x");
+            return;
+        }
+        int a = (charArray[0] == 'x') ? 0 : Character.getNumericValue(charArray[0]);
+        int b = (charArray[2] == 'x') ? 0 : Character.getNumericValue(charArray[2]);
+        int c = (charArray[4] == 'x') ? 0 : Character.getNumericValue(charArray[4]);
+        int result = 0;
+        if (charArray[1] == '+') {
+            result = a + b + c;
+        } else {
+            result = a - b - c;
+        }
+        System.out.println("Неизвестное уравнения равно: " + result);
     }
 }
