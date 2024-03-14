@@ -1,35 +1,41 @@
-import java.util.Random;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int[] intArray = new int[20];
-        for (int i = 0; i < intArray.length; i++) {
-            intArray[i] =  random.nextInt(41) - 20;
+        Scanner console = new Scanner(System.in);
+        System.out.println("Введите количество строк");
+        int numberOfStrings;
+        if (console.hasNextInt()) {
+            numberOfStrings = console.nextInt();
+            console.nextLine();
+        } else {
+            System.out.println("Пожалуйста, введите целое число");
+            return;
         }
-        System.out.println("Выводим минимальное число из массива");
-        System.out.println(getMinValue(intArray));
-        System.out.println("Выводим максимальное число из массива");
-        System.out.println(getMaxValue(intArray));
-    }
+        String[] inputArrayOfStrings = new String[numberOfStrings];
+        for (int i = 0; i < inputArrayOfStrings.length; i++) {
+            System.out.println("Введите строку номер " + (i + 1));
+            inputArrayOfStrings[i] = console.nextLine();
+        }
 
-    public static int getMinValue(int[] intArray) {
-        int MIN_VALUE = Integer.MAX_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] <= MIN_VALUE) {
-                MIN_VALUE = intArray[i];
+        int maxUniqueSymbols = 0;
+        String maxUniqueSymbolsString = "";
+
+        for (String stringInArray : inputArrayOfStrings) {
+            Set<Character> uniqueChars = new HashSet<>();
+            for (int i = 0; i < stringInArray.length(); i++) {
+                uniqueChars.add(stringInArray.charAt(i));
+            }
+            if (uniqueChars.size() > maxUniqueSymbols) {
+                maxUniqueSymbols = uniqueChars.size();
+                maxUniqueSymbolsString = stringInArray;
             }
         }
-        return MIN_VALUE;
-    }
-
-    public static int getMaxValue(int[] intArray) {
-        int MAX_VALUE = Integer.MIN_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] >= MAX_VALUE) {
-                MAX_VALUE = intArray[i];
-            }
-        }
-        return MAX_VALUE;
+        System.out.println("Строка с максимальным количеством уникальных символов: " + maxUniqueSymbolsString);
+        System.out.println("Количество символов в строке: " + maxUniqueSymbols);
     }
 }
