@@ -1,35 +1,27 @@
-import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-        int[] intArray = new int[20];
-        for (int i = 0; i < intArray.length; i++) {
-            intArray[i] =  random.nextInt(41) - 20;
-        }
-        System.out.println("Выводим минимальное число из массива");
-        System.out.println(getMinValue(intArray));
-        System.out.println("Выводим максимальное число из массива");
-        System.out.println(getMaxValue(intArray));
-    }
+        Scanner console = new Scanner(System.in);
+        String correctAnswer = "лук";
+        System.out.println("""
+                Сидит дед, во сто шуб одет, кто его раздевает, тот слезы проливает. Что это?
+                У вас три попытки
+                При первой попытке можно получить подсказку - после этой возможности не будет.
+                Для получения подсказки введите "подсказка\""""
+        );
 
-    public static int getMinValue(int[] intArray) {
-        int MIN_VALUE = Integer.MAX_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] <= MIN_VALUE) {
-                MIN_VALUE = intArray[i];
+        for (int i = 3; i > 0; i--) {
+            String input = console.nextLine();
+            if (input.toLowerCase().equalsIgnoreCase(correctAnswer)) {
+                System.out.println("Правильно!");
+                return;
+            } else if ((input.equalsIgnoreCase("подсказка") && i == 3 )) {
+                System.out.println("Это сьедобное растение");
+                System.out.println("Осталось попыток: " + (i-1));
+            } else {
+                System.out.println("Неправильно! Осталось попыток: " + (i-1));
             }
         }
-        return MIN_VALUE;
-    }
-
-    public static int getMaxValue(int[] intArray) {
-        int MAX_VALUE = Integer.MIN_VALUE;
-        for (int i = 0; i < intArray.length; i++) {
-            if (intArray[i] >= MAX_VALUE) {
-                MAX_VALUE = intArray[i];
-            }
-        }
-        return MAX_VALUE;
     }
 }
