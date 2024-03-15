@@ -4,11 +4,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         String correctAnswer = "лук";
+        boolean isHintTaken = false;
         System.out.println("""
                 Сидит дед, во сто шуб одет, кто его раздевает, тот слезы проливает. Что это?
                 У вас три попытки
                 При первой попытке можно получить подсказку - после этой возможности не будет.
-                Для получения подсказки введите "подсказка\""""
+                Для получения подсказки введите "подсказка"
+                После получения подсказки у вас остается одна попытка
+                """
         );
 
         for (int i = 3; i > 0; i--) {
@@ -16,10 +19,17 @@ public class Main {
             if (input.toLowerCase().equalsIgnoreCase(correctAnswer)) {
                 System.out.println("Правильно!");
                 return;
+            } else if (isHintTaken) {
+                System.out.println("Обидно! Приходи в следующий раз");
+                return;
             } else if ((input.equalsIgnoreCase("подсказка") && i == 3 )) {
+                isHintTaken = true;
                 System.out.println("Это сьедобное растение");
                 System.out.println("Осталось попыток: " + (i-1));
-            } else {
+            } else if ((input.equalsIgnoreCase("подсказка") && i != 3 )) {
+                System.out.println("Подсказка уже недоступна");
+                System.out.println("Осталось попыток: " + (i-1));
+            }else {
                 System.out.println("Неправильно! Осталось попыток: " + (i-1));
             }
         }
